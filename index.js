@@ -2,10 +2,25 @@
 var COS = require('cos-nodejs-sdk-v5')
 var BaseAdapter = require('ghost-storage-base')
 var fs = require('fs')
+var path = require('path')
 var PassThrough = require('stream').PassThrough
 var debug = require('debug')('COS:index')
-var config = require('../../../../core/server/config')
-var utils = require('../../../../core/server/utils')
+
+var cwd = process.cwd();
+var ghostRoot;
+
+if (fs.existsSync(path.join(cwd, 'core'))) {
+    ghostRoot = cwd;
+} else if (fs.existsSync(path.join(cwd, 'current'))) {
+    // installed via ghost cli
+    ghostRoot = path.join(cwd, 'current');
+}
+
+if (!ghostRoot) {
+    throw new Error('Can not get ghost root path!');
+}
+var config = require(path.join(ghostRoot, 'core/server/config'))
+var utils = require(path.join(ghostRoot, 'core/server/utils'))
 
 class MyCustomAdapter extends BaseAdapter {
     constructor(options) {
