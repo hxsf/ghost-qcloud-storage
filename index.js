@@ -4,8 +4,8 @@ var BaseAdapter = require('ghost-storage-base')
 var fs = require('fs')
 var PassThrough = require('stream').PassThrough
 var debug = require('debug')('COS:index')
-var config = require('../../../../config')
-var utils = require('../../../../utils')
+var config = require('../../../../core/server/config')
+var utils = require('../../../../core/server/utils')
 
 class MyCustomAdapter extends BaseAdapter {
     constructor(options) {
